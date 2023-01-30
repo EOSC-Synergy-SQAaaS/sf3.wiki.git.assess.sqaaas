@@ -1,0 +1,46 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: release/1.7.8
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    gitlab.in2p3.fr/opsportal/sf3.wiki:
+      branch: master
+      repo: https://gitlab.in2p3.fr/opsportal/sf3.wiki.git
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      gitlab.in2p3.fr/opsportal/sf3.wiki git:
+        commands:
+        - /usr/bin/env sh .sqa/script.homey-tomato-sponge.sh
+        container: qc.acc_nerdy-indigo-bee
+  QC.Doc:
+    repos:
+      gitlab.in2p3.fr/opsportal/sf3.wiki find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.grumpy-gamboge-tiger.sh
+        container: qc.doc_clammy-apricot-gecko
+      gitlab.in2p3.fr/opsportal/sf3.wiki git:
+        commands:
+        - /usr/bin/env sh .sqa/script.sickly-ochre-bonobo.sh
+        container: qc.doc_grumpy-sepia-lemming
+      gitlab.in2p3.fr/opsportal/sf3.wiki markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.squirrely-lilac-albatross.sh
+        container: qc.doc_grumpy-asparagus-javanese
+  QC.Lic:
+    repos:
+      gitlab.in2p3.fr/opsportal/sf3.wiki licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.baggy-orchid-greyhound.sh
+        container: qc.lic_cozy-flax-dachsbracke
+  QC.Ver:
+    repos:
+      gitlab.in2p3.fr/opsportal/sf3.wiki get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.gloppy-gold-impala.sh
+        container: qc.ver_ready-charcoal-heron
+timeout: 5400
